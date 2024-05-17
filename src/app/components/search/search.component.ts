@@ -51,20 +51,6 @@ export class SearchComponent {
       );
   }
 
-  // onItemClick(code: string): void {
-  //   this.boosterLoading$.next(true);
-  //   this.boosterError$.next(null);
-  //   this.cards$ = this.cardService.getBoosterDetails(code).pipe(
-  //     tap(() => this.boosterLoading$.next(false)),
-  //     catchError((error) => {
-  //       this.boosterError$.next('Erro ao buscar detalhes do booster');
-  //       this.boosterLoading$.next(false);
-  //       return of([]);
-  //     })
-  //   );
-
-  // }
-
   onItemClick(code: string): void {
     this.boosterLoading$.next(true);
     this.boosterError$.next(null);
