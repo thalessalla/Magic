@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #3f261c;
+}
+
+h2 {
+  color: #c5be8b;
+  margin-bottom: 2rem;
+}
+
+h1 {
+  color: #ebdfc6;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Domine", serif;
+  font-weight: 700;
+}
+
+p {
+  font-family: "Nanum Myeongjo", serif;
+  font-weight: 400;
+}

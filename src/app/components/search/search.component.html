@@ -1,0 +1,76 @@
+<section>
+  <h1>Pesquise uma coleção</h1>
+  <form (ngSubmit)="search()">
+    <input type="text" [(ngModel)]="nomeCarta" placeholder="Nome da Carta" name="nomeCarta">
+    <select [(ngModel)]="blocoSelecionado" name="blocoSelecionado">
+      <option value="">Selecione um Bloco</option>
+      <option *ngFor="let bloco of blocosDisponiveis" [value]="bloco">{{ bloco }}</option>
+    </select>
+    <button type="submit">Pesquisar</button>
+  </form>
+
+
+  <div *ngIf="loading$ | async"> <img class="loading-icon" src="../../../assets/carregando.png" alt="Ícone de carregamento"> </div>
+  <div *ngIf="error$ | async" class="container-colections">
+    <h2>Erro ao carregar os dados</h2>
+  </div>
+
+  <div *ngIf="colectionResults$ | async as colectionResults; ">
+    <div class="container-colections">
+      <div *ngFor="let colection of colectionResults" (click)="onItemClick(colection.code)" class="colection">
+        <h2>{{ colection.name }}</h2>
+        <p>{{ colection.block }}</p>
+        <div class="date-block">
+          <p>{{ colection.releaseDate }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="boosterError$ | async" class="container-colections error-msg" #cartas>
+    <h2>Erro ao carregar os dados. Tente outra coleção.</h2>
+  </div>
+
+  <div *ngIf="boosterLoading$ | async" class="container-cards" #cartas>
+    <hr>
+    <div>
+      <ngx-skeleton-loader count="4" [theme]="{ 
+    'height.px': 300,
+    'width.px': 220,
+    'margin.px': 10,
+    'background-color': '#5e3929'
+  }" animation='pulse'></ngx-skeleton-loader>
+    </div>
+
+  </div>
+
+
+
+  <div *ngIf="(cards$ | async) as cards" class="container-cards">
+    <hr>
+    <div>
+      <div *ngFor="let card of cards">
+        <div class="card" [ngClass]="{
+          'white': card.colorIdentity?.[0] === 'W',
+          'blue': card.colorIdentity?.[0] === 'U',
+          'black': card.colorIdentity?.[0] === 'B',
+          'red': card.colorIdentity?.[0] === 'R',
+          'green': card.colorIdentity?.[0] === 'G'
+        }">
+          <img [src]="card.imageUrl" [alt]="card.name">
+          <img [src]="getCardImageUrl(card.colorIdentity?.[0] || 'default')" [alt]="card.name">
+
+          <h2>{{ card.name }}</h2>
+          <p>Mana cost: {{ card.manaCost }}</p>
+          <p>{{ card.text}}</p>
+          <p>Tipo: {{ card.type}}</p>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</section>
